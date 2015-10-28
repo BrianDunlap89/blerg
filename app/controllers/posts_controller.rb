@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   def new
+    @post = Post.new
     render :new
   end
 
@@ -26,11 +27,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find_by(params[:id])
-    @post.update(title: params[:title],
+    post = Post.find(params[:id])
+    post.update(title: params[:title],
                 content: params[:content],
                 updated_at: DateTime.now)
-    render :show
+    redirect_to post_path(post)
   end
 
 end
